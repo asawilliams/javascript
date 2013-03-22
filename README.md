@@ -620,23 +620,10 @@ The intention of this style guide is to get contributers on the same page to hel
 
 ## <a name='comments'>Comments</a>
 
-  - Use `/** ... */` for multiline comments. Include a description, specify types and values for all parameters and return values.
+### <a name="comment.methods">Methods</a>
 
-    ```javascript
-    // bad
-    // make() returns a new element
-    // based on the passed in tag name
-    //
-    // @param <String> tag
-    // @return <Element> element
-    function make(tag) {
+  Use `/** ... */` for multiline comments. Include a description, specify types and values for all parameters and return values.
 
-      // ...stuff...
-
-      return element;
-    }
-
-    // good
     /**
      * Method Description
      * 
@@ -713,7 +700,7 @@ The intention of this style guide is to get contributers on the same page to hel
 
 ## <a name='whitespace'>Whitespace</a>
   
-  - Use tabs not spaces for indenting  
+  Use tabs not spaces for indenting  
   Why tabs are better than spaces: http://lea.verou.me/2012/01/why-tabs-are-clearly-superior/
 
     ```javascript
@@ -764,7 +751,7 @@ The intention of this style guide is to get contributers on the same page to hel
 
     ```
 
-  - Use indentation when making long method chains.
+  - Use indentation when making long method chains.  Try not to over chain.  3 or 4 is about the max recommended.
 
     ```javascript
     // bad
@@ -772,27 +759,8 @@ The intention of this style guide is to get contributers on the same page to hel
 
     // good
     $('#items')
-      .find('.selected')
-        .highlight()
-        .end()
-      .find('.open')
-        .updateCount();
-
-    // bad
-    var leds = stage.selectAll('.led').data(data).enter().append("svg:svg").class('led', true)
-        .attr('width',  (radius + margin) * 2).append("svg:g")
-        .attr("transform", "translate(" + (radius + margin) + "," + (radius + margin) + ")")
-        .call(tron.led);
-
-    // good
-    var leds = stage.selectAll('.led')
-        .data(data)
-      .enter().append("svg:svg")
-        .class('led', true)
-        .attr('width',  (radius + margin) * 2)
-      .append("svg:g")
-        .attr("transform", "translate(" + (radius + margin) + "," + (radius + margin) + ")")
-        .call(tron.led);
+        .removeClass('selected')
+        .css('top', 20);
     ```
 
     **[[⬆]](#TOC)**
@@ -1000,17 +968,9 @@ The intention of this style guide is to get contributers on the same page to hel
     this._firstName = 'Panda';
     ```
 
-  - When saving a reference to `this` use `_this`.
+  - When saving a reference to `this` use `self`.
 
     ```javascript
-    // bad
-    function() {
-      var self = this;
-      return function() {
-        console.log(self);
-      };
-    }
-
     // bad
     function() {
       var that = this;
@@ -1021,14 +981,14 @@ The intention of this style guide is to get contributers on the same page to hel
 
     // good
     function() {
-      var _this = this;
+      var self = this;
       return function() {
-        console.log(_this);
+        console.log(self);
       };
     }
     ```
 
-  - Name your functions. This is helpful for stack traces.
+  - If you need to store a function in a variable then name your functions. This is helpful for stack traces.
 
     ```javascript
     // bad
@@ -1213,72 +1173,6 @@ The intention of this style guide is to get contributers on the same page to hel
     ```
 
     **[[⬆]](#TOC)**
-
-
-## <a name='jquery'>jQuery</a>
-
-  - Prefix jQuery object variables with a `$`.
-
-    ```javascript
-    // bad
-    var sidebar = $('.sidebar');
-
-    // good
-    var $sidebar = $('.sidebar');
-    ```
-
-  - Cache jQuery lookups.
-
-    ```javascript
-    // bad
-    function setSidebar() {
-      $('.sidebar').hide();
-
-      // ...stuff...
-
-      $('.sidebar').css({
-        'background-color': 'pink'
-      });
-    }
-
-    // good
-    function setSidebar() {
-      var $sidebar = $('.sidebar');
-      $sidebar.hide();
-
-      // ...stuff...
-
-      $sidebar.css({
-        'background-color': 'pink'
-      });
-    }
-    ```
-
-  - For DOM queries use Cascading `$('.sidebar ul')` or parent > child `$('.sidebar > ul')`. [jsPerf](http://jsperf.com/jquery-find-vs-context-sel/16)
-  - Use `find` with scoped jQuery object queries.
-
-    ```javascript
-    // bad
-    $('.sidebar', 'ul').hide();
-
-    // bad
-    $('.sidebar').find('ul').hide();
-
-    // good
-    $('.sidebar ul').hide();
-
-    // good
-    $('.sidebar > ul').hide();
-
-    // good (slower)
-    $sidebar.find('ul');
-
-    // good (faster)
-    $($sidebar[0]).find('ul');
-    ```
-
-    **[[⬆]](#TOC)**
-
 
 ## <a name='es5'>ECMAScript 5 Compatibility</a>
 
