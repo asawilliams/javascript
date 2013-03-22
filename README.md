@@ -698,24 +698,16 @@
 
 
 ## <a name='whitespace'>Whitespace</a>
-
-  - Use soft tabs set to 2 spaces
+  
+  - Use tabs not spaces for indenting
+  Why tabs are better than spaces: http://lea.verou.me/2012/01/why-tabs-are-clearly-superior/
 
     ```javascript
     // bad
     function() {
-    ∙∙∙∙var name;
+    [tab]var name;
     }
 
-    // bad
-    function() {
-    ∙var name;
-    }
-
-    // good
-    function() {
-    ∙∙var name;
-    }
     ```
   - Place 1 space before the leading brace.
 
