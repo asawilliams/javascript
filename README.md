@@ -638,17 +638,17 @@ The intention of this style guide is to get contributers on the same page to hel
 
     // good
     /**
-     * make() returns a new element
-     * based on the passed in tag name
-     *
-     * @param <String> tag
-     * @return <Element> element
+     * Method Description
+     * 
+     * @param  {String}   name 						name of the user to find
+     * @param  {Object} 	parent   					parent object
+     * @param  {String} 	parent.username 			parent's username
+     * @param  {Int} 		[parent.age] 				optional parameter
+     * @param  {Boolean} 	[parent.isGaurdian=true] 	optional parameter, defaults to true
+     * @return {User}       first result that matches the name and parent
      */
-    function make(tag) {
-
-      // ...stuff...
-
-      return element;
+    function getUser(name, parent) {
+        return user;
     }
     ```
 
