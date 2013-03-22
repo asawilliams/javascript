@@ -699,11 +699,10 @@
 
 ## <a name='whitespace'>Whitespace</a>
   
-  - Use tabs not spaces for indenting
+  - Use tabs not spaces for indenting  
   Why tabs are better than spaces: http://lea.verou.me/2012/01/why-tabs-are-clearly-superior/
 
     ```javascript
-    // bad
     function() {
     [tab]var name;
     }
