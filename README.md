@@ -44,7 +44,7 @@ The intention of this style guide is to get contributers on the same page to hel
 
 ## <a name='objects'>Objects</a>
 
-  Use the literal syntax for object creation.
+  - Use the literal syntax for object creation.
 
     ```javascript
     // bad
@@ -56,7 +56,7 @@ The intention of this style guide is to get contributers on the same page to hel
 
 ## <a name='arrays'>Arrays</a>
 
-  Use the literal syntax for array creation
+  - Use the literal syntax for array creation
 
     ```javascript
     // bad
@@ -66,7 +66,7 @@ The intention of this style guide is to get contributers on the same page to hel
     var items = [];
     ```
 
-  If you don't know array length use Array#push.
+  - If you don't know array length use Array#push.
 
     ```javascript
     var someStack = [];
@@ -81,7 +81,7 @@ The intention of this style guide is to get contributers on the same page to hel
 
 ## <a name='strings'>Strings</a>
 
-  Use single quotes `''` for strings
+  - Use single quotes `''` for strings
 
     ```javascript
     // bad
@@ -124,7 +124,7 @@ The intention of this style guide is to get contributers on the same page to hel
 
 ## <a name='functions'>Functions</a>
 
-  Function expressions:
+  - Function expressions:
 
     ```javascript
     // anonymous function expression
@@ -143,7 +143,7 @@ The intention of this style guide is to get contributers on the same page to hel
     })();
     ```
 
-  Never declare a function in a non-function block (if, while, etc). Assign the function to a variable instead. Browsers will allow you to do it, but they all interpret it differently, which is bad news bears.
+  - Never declare a function in a non-function block (if, while, etc). Assign the function to a variable instead. Browsers will allow you to do it, but they all interpret it differently, which is bad news bears.
   **Note:** ECMA-262 defines a `block` as a list of statements. A function declaration is not a statement. [Read ECMA-262's note on this issue](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf#page=97).
 
     ```javascript
@@ -165,7 +165,7 @@ The intention of this style guide is to get contributers on the same page to hel
 
 ## <a name='properties'>Properties</a>
 
-  Use dot notation when accessing properties.
+  - Use dot notation when accessing properties.
 
     ```javascript
     var luke = {
@@ -180,7 +180,7 @@ The intention of this style guide is to get contributers on the same page to hel
     var isJedi = luke.jedi;
     ```
 
-  Use subscript notation `[]` when accessing properties with a variable.
+  - Use subscript notation `[]` when accessing properties with a variable.
 
     ```javascript
     var luke = {
@@ -200,7 +200,7 @@ The intention of this style guide is to get contributers on the same page to hel
 
 ## <a name='variables'>Variables</a>
 
-  Always use `var` to declare variables. Not doing so will result in global variables. We want to avoid polluting the global namespace. Captain Planet warned us of that.
+  - Always use `var` to declare variables. Not doing so will result in global variables. We want to avoid polluting the global namespace. Captain Planet warned us of that.
 
     ```javascript
     // bad
@@ -210,7 +210,7 @@ The intention of this style guide is to get contributers on the same page to hel
     var superPower = new SuperPower();
     ```
 
-  Use one `var` declaration for multiple variables and declare each variable on a newline.
+  - Use one `var` declaration for multiple variables and declare each variable on a newline.
 
     ```javascript
     // bad
@@ -224,7 +224,7 @@ The intention of this style guide is to get contributers on the same page to hel
         dragonball = 'z';
     ```
 
-  Declare unassigned variables last. This is helpful when later on you might need to assign a variable depending on one of the previous assigned variables.
+  - Declare unassigned variables last. This is helpful when later on you might need to assign a variable depending on one of the previous assigned variables.
 
     ```javascript
     // bad
@@ -246,7 +246,7 @@ The intention of this style guide is to get contributers on the same page to hel
         i;
     ```
 
-  Assign variables at the top of their scope for the most part. This helps avoid issues with variable declaration and assignment hoisting related issues.
+  - Assign variables at the top of their scope for the most part. This helps avoid issues with variable declaration and assignment hoisting related issues.
 
     ```javascript
     // bad
@@ -284,8 +284,8 @@ The intention of this style guide is to get contributers on the same page to hel
 
 ## <a name='conditionals'>Conditional Expressions & Equality</a>
 
-  Use `===` and `!==` over `==` and `!=`.
-  Conditional expressions are evaluated using coercion with the `ToBoolean` method and always follow these simple rules:
+  - Use `===` and `!==` over `==` and `!=`.
+  - Conditional expressions are evaluated using coercion with the `ToBoolean` method and always follow these simple rules:
 
     + **Objects** evaluate to **true**
     + **Undefined** evaluates to **false**
@@ -301,7 +301,7 @@ The intention of this style guide is to get contributers on the same page to hel
     }
     ```
 
-  Use shortcuts.
+  - Use shortcuts.
 
     ```javascript
     // bad
@@ -325,14 +325,14 @@ The intention of this style guide is to get contributers on the same page to hel
     }
     ```
 
-  For more information see [Truth Equality and JavaScript](http://javascriptweblog.wordpress.com/2011/02/07/truth-equality-and-javascript/#more-2108) by Angus Croll
+  - For more information see [Truth Equality and JavaScript](http://javascriptweblog.wordpress.com/2011/02/07/truth-equality-and-javascript/#more-2108) by Angus Croll
 
     **[[⬆]](#TOC)**
 
 
 ## <a name='blocks'>Blocks</a>
 
-  Use braces with all multi-line blocks.
+  - Use braces with all multi-line blocks.
 
     ```javascript
     // bad
@@ -363,7 +363,7 @@ The intention of this style guide is to get contributers on the same page to hel
 
 ### <a name="comment.methods">Methods</a>
 
-  Use `/** ... */` for multiline comments. Include a description, specify types and values for all parameters and return values.
+  - Use `/** ... */` for multiline comments. Include a description, specify types and values for all parameters and return values.
 
     /**
      * Method Description
@@ -380,7 +380,7 @@ The intention of this style guide is to get contributers on the same page to hel
     }
     ```
 
-  Use `//` for single line comments. Place single line comments on a newline above the subject of the comment. Put an emptyline before the comment.
+  - Use `//` for single line comments. Place single line comments on a newline above the subject of the comment. Put an emptyline before the comment.
 
     ```javascript
     // bad
@@ -410,9 +410,9 @@ The intention of this style guide is to get contributers on the same page to hel
     }
     ```
 
-  Prefixing your comments with `FIXME` or `TODO` helps other developers quickly understand if you're pointing out a problem that needs to be revisited, or if you're suggesting a solution to the problem that needs to be implemented. These are different than regular comments because they are actionable. The actions are `FIXME -- need to figure this out` or `TODO -- need to implement`.
+  - Prefixing your comments with `FIXME` or `TODO` helps other developers quickly understand if you're pointing out a problem that needs to be revisited, or if you're suggesting a solution to the problem that needs to be implemented. These are different than regular comments because they are actionable. The actions are `FIXME -- need to figure this out` or `TODO -- need to implement`.
 
-  Use `// FIXME:` to annotate problems
+  - Use `// FIXME:` to annotate problems
 
     ```javascript
     function Calculator() {
@@ -424,7 +424,7 @@ The intention of this style guide is to get contributers on the same page to hel
     }
     ```
 
-  Use `// TODO:` to annotate solutions to problems
+  - Use `// TODO:` to annotate solutions to problems
 
     ```javascript
     function Calculator() {
@@ -441,8 +441,8 @@ The intention of this style guide is to get contributers on the same page to hel
 
 ## <a name='whitespace'>Whitespace</a>
   
-  Use tabs not spaces for indenting  
-  Why tabs are better than spaces: http://lea.verou.me/2012/01/why-tabs-are-clearly-superior/
+  - Use tabs not spaces for indenting  
+  - Why tabs are better than spaces: http://lea.verou.me/2012/01/why-tabs-are-clearly-superior/
 
     ```javascript
     function[space]name(arg1,[space]arg2)[space]{
@@ -450,7 +450,7 @@ The intention of this style guide is to get contributers on the same page to hel
     }
 
     ```
-  Place 1 space before the leading brace.
+  - Place 1 space before the leading brace.
 
     ```javascript
     // bad
@@ -475,7 +475,7 @@ The intention of this style guide is to get contributers on the same page to hel
       breed: 'Bernese Mountain Dog'
     });
     ```
-  Place an empty newline at the end of the file.
+  - Place an empty newline at the end of the file.
 
     ```javascript
     // bad
@@ -492,7 +492,7 @@ The intention of this style guide is to get contributers on the same page to hel
 
     ```
 
-  Use indentation when making long method chains.  Try not to over chain.  3 or 4 is about the max recommended.
+  - Use indentation when making long method chains.  Try not to over chain.  3 or 4 is about the max recommended.
 
     ```javascript
     // bad
@@ -589,8 +589,8 @@ The intention of this style guide is to get contributers on the same page to hel
     var totalScore = this.reviewScore + ' total score';
     ```
 
-  Use `parseInt` for Numbers and always with a radix for type casting.
-  If for whatever reason you are doing something wild and `parseInt` is your bottleneck and need to use Bitshift for [performance reasons](http://jsperf.com/coercion-vs-casting/3), leave a comment explaining why and what you're doing.
+  - Use `parseInt` for Numbers and always with a radix for type casting.
+  - If for whatever reason you are doing something wild and `parseInt` is your bottleneck and need to use Bitshift for [performance reasons](http://jsperf.com/coercion-vs-casting/3), leave a comment explaining why and what you're doing.
 
     ```javascript
     var inputValue = '4';
@@ -622,7 +622,7 @@ The intention of this style guide is to get contributers on the same page to hel
     var val = inputValue >> 0;
     ```
 
-  Booleans:
+  - Booleans:
 
     ```javascript
     var age = 0;
@@ -642,7 +642,7 @@ The intention of this style guide is to get contributers on the same page to hel
 
 ## <a name='naming-conventions'>Naming Conventions</a>
 
-  Avoid single letter names. Be descriptive with your naming.
+  - Avoid single letter names. Be descriptive with your naming.
 
     ```javascript
     // bad
@@ -656,7 +656,7 @@ The intention of this style guide is to get contributers on the same page to hel
     }
     ```
 
-  Use camelCase when naming objects, functions, and instances
+  - Use camelCase when naming objects, functions, and instances
 
     ```javascript
     // bad
@@ -676,7 +676,7 @@ The intention of this style guide is to get contributers on the same page to hel
     });
     ```
 
-  Use PascalCase when naming constructors or classes
+  - Use PascalCase when naming constructors or classes
 
     ```javascript
     // bad
@@ -698,7 +698,7 @@ The intention of this style guide is to get contributers on the same page to hel
     });
     ```
 
-  Use a leading underscore `_` when naming private properties in a class 
+  - Use a leading underscore `_` when naming private properties in a class 
 
     ```javascript
     // bad
@@ -713,7 +713,7 @@ The intention of this style guide is to get contributers on the same page to hel
     }
     ```
 
-  When saving a reference to `this` use `self`.
+  - When saving a reference to `this` use `self`.
 
     ```javascript
     // bad
@@ -733,7 +733,7 @@ The intention of this style guide is to get contributers on the same page to hel
     }
     ```
 
-  If you need to store a function in a variable then name your functions. This is helpful for stack traces.
+  - If you need to store a function in a variable then name your functions. This is helpful for stack traces.
 
     ```javascript
     // bad
@@ -747,7 +747,7 @@ The intention of this style guide is to get contributers on the same page to hel
     };
     ```
 
-  Booleans should start with either 'is' or 'has'.
+  - Booleans should start with either 'is' or 'has'.
 
     ```javascript
     // bad
@@ -762,8 +762,8 @@ The intention of this style guide is to get contributers on the same page to hel
 
 ## <a name='accessors'>Accessors</a>
 
-  Accessor functions for properties are not required
-  If you do make accessor functions use getVal() and setVal('hello')
+  - Accessor functions for properties are not required
+  - If you do make accessor functions use getVal() and setVal('hello')
 
     ```javascript
     // bad
@@ -779,7 +779,7 @@ The intention of this style guide is to get contributers on the same page to hel
     dragon.setAge(25);
     ```
 
-  If the property is a boolean, use isVal() or hasVal()
+  - If the property is a boolean, use isVal() or hasVal()
 
     ```javascript
     // bad
@@ -795,7 +795,7 @@ The intention of this style guide is to get contributers on the same page to hel
 
 ## <a name='constructors'>Constructors</a>
 
-  Assign methods to the prototype object, instead of overwriting the prototype with a new object. Overwriting the prototype makes inheritance impossible: by resetting the prototype you'll overwrite the base!
+  - Assign methods to the prototype object, instead of overwriting the prototype with a new object. Overwriting the prototype makes inheritance impossible: by resetting the prototype you'll overwrite the base!
 
     ```javascript
     function Jedi() {
@@ -825,10 +825,10 @@ The intention of this style guide is to get contributers on the same page to hel
 
 ## <a name='modules'>Modules</a>
 
-  The module should start with a `!`. This ensures that if a malformed module forgets to include a final semicolon there aren't errors in production when the scripts get concatenated.
-  The file should be named with camelCase, live in a folder with the same name, and match the name of the single export.
-  Add a method called noConflict() that sets the exported module to the previous version and returns this one.
-  Always declare `'use strict';` at the top of the module.
+  - The module should start with a `!`. This ensures that if a malformed module forgets to include a final semicolon there aren't errors in production when the scripts get concatenated.
+  - The file should be named with camelCase, live in a folder with the same name, and match the name of the single export.
+  - Add a method called noConflict() that sets the exported module to the previous version and returns this one.
+  - Always declare `'use strict';` at the top of the module.
 
     ```javascript
     // fancyInput/fancyInput.js
