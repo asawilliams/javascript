@@ -364,17 +364,17 @@ The intention of this style guide is to get contributers on the same page to hel
 ### <a name="comment.methods">Methods</a>
 
   - Use `/** ... */` for multiline comments. Include a description, specify types and values for all parameters and return values.
-  
+
     ```javascript
     /**
      * Method Description
      * 
-     * @param  {String}   name            name of the user to find
-     * @param  {Object}   parent            parent object
-     * @param  {String}   parent.username       parent's username
-     * @param  {Int}      [parent.age]        optional parameter
+     * @param  {String}   name                      name of the user to find
+     * @param  {Object}   parent                    parent object
+     * @param  {String}   parent.username           parent's username
+     * @param  {Int}      [parent.age]              optional parameter
      * @param  {Boolean}  [parent.isGaurdian=true]  optional parameter, defaults to true
-     * @return {User}       first result that matches the name and parent
+     * @return {User}     first result that matches the name and parent
      */
     function getUser(name, parent) {
         return user;
