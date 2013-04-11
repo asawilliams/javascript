@@ -368,11 +368,11 @@ The intention of this style guide is to get contributers on the same page to hel
     /**
      * Method Description
      * 
-     * @param  {String}   name 						name of the user to find
-     * @param  {Object} 	parent   					parent object
-     * @param  {String} 	parent.username 			parent's username
-     * @param  {Int} 		  [parent.age] 				optional parameter
-     * @param  {Boolean} 	[parent.isGaurdian=true] 	optional parameter, defaults to true
+     * @param  {String}   name            name of the user to find
+     * @param  {Object}   parent            parent object
+     * @param  {String}   parent.username       parent's username
+     * @param  {Int}      [parent.age]        optional parameter
+     * @param  {Boolean}  [parent.isGaurdian=true]  optional parameter, defaults to true
      * @return {User}       first result that matches the name and parent
      */
     function getUser(name, parent) {
