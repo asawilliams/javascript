@@ -364,7 +364,8 @@ The intention of this style guide is to get contributers on the same page to hel
 ### <a name="comment.methods">Methods</a>
 
   - Use `/** ... */` for multiline comments. Include a description, specify types and values for all parameters and return values.
-
+  
+    ```javascript
     /**
      * Method Description
      * 
