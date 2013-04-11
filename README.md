@@ -38,55 +38,13 @@ The intention of this style guide is to get contributers on the same page to hel
   1. [Accessors](#accessors)
   1. [Constructors](#constructors)
   1. [Modules](#modules)
-  1. [jQuery](#jquery)
-  1. [ES5 Compatibility](#es5)
-  1. [Testing](#testing)
-  1. [Performance](#performance)
-  1. [Resources](#resources)
-  1. [In the Wild](#in-the-wild)
-  1. [Translation](#translation)
-  1. [The JavaScript Style Guide Guide](#guide-guide)
-  1. [Contributors](#contributors)
   1. [License](#license)
 
 ## <a name='types'>Types</a>
 
-  - **Primitives**: When you access a primitive type you work directly on its value
-
-    + `string`
-    + `number`
-    + `boolean`
-    + `null`
-    + `undefined`
-
-    ```javascript
-    var foo = 1,
-        bar = foo;
-
-    bar = 9;
-
-    console.log(foo, bar); // => 1, 9
-    ```
-  - **Complex**: When you access a complex type you work on a reference to its value
-
-    + `object`
-    + `array`
-    + `function`
-
-    ```javascript
-    var foo = [1, 2],
-        bar = foo;
-
-    bar[0] = 9;
-
-    console.log(foo[0], bar[0]); // => 9, 9
-    ```
-
-    **[[⬆]](#TOC)**
-
 ## <a name='objects'>Objects</a>
 
-  - Use the literal syntax for object creation.
+  Use the literal syntax for object creation.
 
     ```javascript
     // bad
@@ -96,28 +54,9 @@ The intention of this style guide is to get contributers on the same page to hel
     var item = {};
     ```
 
-  - Don't use [reserved words](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Reserved_Words) as keys.
-
-    ```javascript
-    // bad
-    var superman = {
-      class: 'superhero',
-      default: { clark: 'kent' },
-      private: true
-    };
-
-    // good
-    var superman = {
-      klass: 'superhero',
-      defaults: { clark: 'kent' },
-      hidden: true
-    };
-    ```
-    **[[⬆]](#TOC)**
-
 ## <a name='arrays'>Arrays</a>
 
-  - Use the literal syntax for array creation
+  Use the literal syntax for array creation
 
     ```javascript
     // bad
@@ -127,7 +66,7 @@ The intention of this style guide is to get contributers on the same page to hel
     var items = [];
     ```
 
-  - If you don't know array length use Array#push.
+  If you don't know array length use Array#push.
 
     ```javascript
     var someStack = [];
@@ -140,28 +79,9 @@ The intention of this style guide is to get contributers on the same page to hel
     someStack.push('abracadabra');
     ```
 
-  - When you need to copy an array use Array#slice. [jsPerf](http://jsperf.com/converting-arguments-to-an-array/7)
-
-    ```javascript
-    var len = items.length,
-        itemsCopy = [],
-        i;
-
-    // bad
-    for (i = 0; i < len; i++) {
-      itemsCopy[i] = items[i];
-    }
-
-    // good
-    itemsCopy = Array.prototype.slice.call(items);
-    ```
-
-    **[[⬆]](#TOC)**
-
-
 ## <a name='strings'>Strings</a>
 
-  - Use single quotes `''` for strings
+  Use single quotes `''` for strings
 
     ```javascript
     // bad
@@ -202,55 +122,9 @@ The intention of this style guide is to get contributers on the same page to hel
       'fast.';
     ```
 
-  - When programatically building up a string, use Array#join instead of string concatenation. Mostly for IE: [jsPerf](http://jsperf.com/string-vs-array-concat/2).
-
-    ```javascript
-    var items,
-        messages,
-        length, i;
-
-    messages = [{
-        state: 'success',
-        message: 'This one worked.'
-    },{
-        state: 'success',
-        message: 'This one worked as well.'
-    },{
-        state: 'error',
-        message: 'This one did not work.'
-    }];
-
-    length = messages.length;
-
-    // bad
-    function inbox(messages) {
-      items = '<ul>';
-
-      for (i = 0; i < length; i++) {
-        items += '<li>' + messages[i].message + '</li>';
-      }
-
-      return items + '</ul>';
-    }
-
-    // good
-    function inbox(messages) {
-      items = [];
-
-      for (i = 0; i < length; i++) {
-        items[i] = messages[i].message;
-      }
-
-      return '<ul><li>' + items.join('</li><li>') + '</li></ul>';
-    }
-    ```
-
-    **[[⬆]](#TOC)**
-
-
 ## <a name='functions'>Functions</a>
 
-  - Function expressions:
+  Function expressions:
 
     ```javascript
     // anonymous function expression
@@ -269,8 +143,8 @@ The intention of this style guide is to get contributers on the same page to hel
     })();
     ```
 
-  - Never declare a function in a non-function block (if, while, etc). Assign the function to a variable instead. Browsers will allow you to do it, but they all interpret it differently, which is bad news bears.
-  - **Note:** ECMA-262 defines a `block` as a list of statements. A function declaration is not a statement. [Read ECMA-262's note on this issue](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf#page=97).
+  Never declare a function in a non-function block (if, while, etc). Assign the function to a variable instead. Browsers will allow you to do it, but they all interpret it differently, which is bad news bears.
+  **Note:** ECMA-262 defines a `block` as a list of statements. A function declaration is not a statement. [Read ECMA-262's note on this issue](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf#page=97).
 
     ```javascript
     // bad
@@ -281,34 +155,17 @@ The intention of this style guide is to get contributers on the same page to hel
     }
 
     // good
+    var test;
     if (currentUser) {
-      var test = function test() {
+      test = function() {
         console.log('Yup.');
       };
     }
     ```
 
-  - Never name a parameter `arguments`, this will take precedence over the `arguments` object that is given to every function scope.
-
-    ```javascript
-    // bad
-    function nope(name, options, arguments) {
-      // ...stuff...
-    }
-
-    // good
-    function yup(name, options, args) {
-      // ...stuff...
-    }
-    ```
-
-    **[[⬆]](#TOC)**
-
-
-
 ## <a name='properties'>Properties</a>
 
-  - Use dot notation when accessing properties.
+  Use dot notation when accessing properties.
 
     ```javascript
     var luke = {
@@ -323,7 +180,7 @@ The intention of this style guide is to get contributers on the same page to hel
     var isJedi = luke.jedi;
     ```
 
-  - Use subscript notation `[]` when accessing properties with a variable.
+  Use subscript notation `[]` when accessing properties with a variable.
 
     ```javascript
     var luke = {
@@ -343,7 +200,7 @@ The intention of this style guide is to get contributers on the same page to hel
 
 ## <a name='variables'>Variables</a>
 
-  - Always use `var` to declare variables. Not doing so will result in global variables. We want to avoid polluting the global namespace. Captain Planet warned us of that.
+  Always use `var` to declare variables. Not doing so will result in global variables. We want to avoid polluting the global namespace. Captain Planet warned us of that.
 
     ```javascript
     // bad
@@ -353,7 +210,7 @@ The intention of this style guide is to get contributers on the same page to hel
     var superPower = new SuperPower();
     ```
 
-  - Use one `var` declaration for multiple variables and declare each variable on a newline.
+  Use one `var` declaration for multiple variables and declare each variable on a newline.
 
     ```javascript
     // bad
@@ -367,7 +224,7 @@ The intention of this style guide is to get contributers on the same page to hel
         dragonball = 'z';
     ```
 
-  - Declare unassigned variables last. This is helpful when later on you might need to assign a variable depending on one of the previous assigned variables.
+  Declare unassigned variables last. This is helpful when later on you might need to assign a variable depending on one of the previous assigned variables.
 
     ```javascript
     // bad
@@ -389,162 +246,46 @@ The intention of this style guide is to get contributers on the same page to hel
         i;
     ```
 
-  - Assign variables at the top of their scope. This helps avoid issues with variable declaration and assignment hoisting related issues.
+  Assign variables at the top of their scope for the most part. This helps avoid issues with variable declaration and assignment hoisting related issues.
 
     ```javascript
     // bad
     function() {
       test();
-      console.log('doing stuff..');
-
-      //..other stuff..
-
-      var name = getName();
-
-      if (name === 'test') {
-        return false;
-      }
-
-      return name;
+      var str = 'string';
     }
 
     // good
     function() {
-      var name = getName();
-
+      var str = 'string';
       test();
-      console.log('doing stuff..');
-
-      //..other stuff..
-
-      if (name === 'test') {
-        return false;
-      }
-
-      return name;
     }
+    ```
+    It is better though to keep variables in context than to force the declaration at the top of the scope.  A good example is when you want to break out the computation of a value into multiple peices to read it better.
 
+    ```javascript
     // bad
     function() {
-      var name = getName();
+      var i = 0,
+          len = array.length;
 
-      if (!arguments.length) {
-        return false;
+      for( ; i < len; i++) {
+
       }
-
-      return true;
     }
 
     // good
-    function() {
-      if (!arguments.length) {
-        return false;
-      }
+    for(var i = 0, len = array.length; i < len; i++) {
 
-      var name = getName();
-
-      return true;
     }
     ```
 
     **[[⬆]](#TOC)**
-
-
-## <a name='hoisting'>Hoisting</a>
-
-  - Variable declarations get hoisted to the top of their scope, their assignment does not.
-
-    ```javascript
-    // we know this wouldn't work (assuming there
-    // is no notDefined global variable)
-    function example() {
-      console.log(notDefined); // => throws a ReferenceError
-    }
-
-    // creating a variable declaration after you
-    // reference the variable will work due to
-    // variable hoisting. Note: the assignment
-    // value of `true` is not hoisted.
-    function example() {
-      console.log(declaredButNotAssigned); // => undefined
-      var declaredButNotAssigned = true;
-    }
-
-    // The interpreter is hoisting the variable
-    // declaration to the top of the scope.
-    // Which means our example could be rewritten as:
-    function example() {
-      var declaredButNotAssigned;
-      console.log(declaredButNotAssigned); // => undefined
-      declaredButNotAssigned = true;
-    }
-    ```
-
-  - Anonymous function expressions hoist their variable name, but not the function assignment.
-
-    ```javascript
-    function example() {
-      console.log(anonymous); // => undefined
-
-      anonymous(); // => TypeError anonymous is not a function
-
-      var anonymous = function() {
-        console.log('anonymous function expression');
-      };
-    }
-    ```
-
-  - Named function expressions hoist the variable name, not the function name or the function body.
-
-    ```javascript
-    function example() {
-      console.log(named); // => undefined
-
-      named(); // => TypeError named is not a function
-
-      superPower(); // => ReferenceError superPower is not defined
-
-      var named = function superPower() {
-        console.log('Flying');
-      };
-
-
-      // the same is true when the function name
-      // is the same as the variable name.
-      function example() {
-        console.log(named); // => undefined
-
-        named(); // => TypeError named is not a function
-
-        var named = function named() {
-          console.log('named');
-        };
-      }
-    }
-    ```
-
-  - Function declarations hoist their name and the function body.
-
-    ```javascript
-    function example() {
-      superPower(); // => Flying
-
-      function superPower() {
-        console.log('Flying');
-      }
-    }
-    ```
-
-  - For more information refer to [JavaScript Scoping & Hoisting](http://www.adequatelygood.com/2010/2/JavaScript-Scoping-and-Hoisting) by [Ben Cherry](http://www.adequatelygood.com/)
-
-    **[[⬆]](#TOC)**
-
-
 
 ## <a name='conditionals'>Conditional Expressions & Equality</a>
 
-  - Use `===` and `!==` over `==` and `!=`.
-  - Conditional expressions are evaluated using coercion with the `ToBoolean` method and always follow these simple rules:
+  Use `===` and `!==` over `==` and `!=`.
+  Conditional expressions are evaluated using coercion with the `ToBoolean` method and always follow these simple rules:
 
     + **Objects** evaluate to **true**
     + **Undefined** evaluates to **false**
@@ -560,7 +301,7 @@ The intention of this style guide is to get contributers on the same page to hel
     }
     ```
 
-  - Use shortcuts.
+  Use shortcuts.
 
     ```javascript
     // bad
@@ -584,14 +325,14 @@ The intention of this style guide is to get contributers on the same page to hel
     }
     ```
 
-  - For more information see [Truth Equality and JavaScript](http://javascriptweblog.wordpress.com/2011/02/07/truth-equality-and-javascript/#more-2108) by Angus Croll
+  For more information see [Truth Equality and JavaScript](http://javascriptweblog.wordpress.com/2011/02/07/truth-equality-and-javascript/#more-2108) by Angus Croll
 
     **[[⬆]](#TOC)**
 
 
 ## <a name='blocks'>Blocks</a>
 
-  - Use braces with all multi-line blocks.
+  Use braces with all multi-line blocks.
 
     ```javascript
     // bad
@@ -630,7 +371,7 @@ The intention of this style guide is to get contributers on the same page to hel
      * @param  {String}   name 						name of the user to find
      * @param  {Object} 	parent   					parent object
      * @param  {String} 	parent.username 			parent's username
-     * @param  {Int} 		[parent.age] 				optional parameter
+     * @param  {Int} 		  [parent.age] 				optional parameter
      * @param  {Boolean} 	[parent.isGaurdian=true] 	optional parameter, defaults to true
      * @return {User}       first result that matches the name and parent
      */
@@ -639,7 +380,7 @@ The intention of this style guide is to get contributers on the same page to hel
     }
     ```
 
-  - Use `//` for single line comments. Place single line comments on a newline above the subject of the comment. Put an emptyline before the comment.
+  Use `//` for single line comments. Place single line comments on a newline above the subject of the comment. Put an emptyline before the comment.
 
     ```javascript
     // bad
@@ -669,9 +410,9 @@ The intention of this style guide is to get contributers on the same page to hel
     }
     ```
 
-  - Prefixing your comments with `FIXME` or `TODO` helps other developers quickly understand if you're pointing out a problem that needs to be revisited, or if you're suggesting a solution to the problem that needs to be implemented. These are different than regular comments because they are actionable. The actions are `FIXME -- need to figure this out` or `TODO -- need to implement`.
+  Prefixing your comments with `FIXME` or `TODO` helps other developers quickly understand if you're pointing out a problem that needs to be revisited, or if you're suggesting a solution to the problem that needs to be implemented. These are different than regular comments because they are actionable. The actions are `FIXME -- need to figure this out` or `TODO -- need to implement`.
 
-  - Use `// FIXME:` to annotate problems
+  Use `// FIXME:` to annotate problems
 
     ```javascript
     function Calculator() {
@@ -683,7 +424,7 @@ The intention of this style guide is to get contributers on the same page to hel
     }
     ```
 
-  - Use `// TODO:` to annotate solutions to problems
+  Use `// TODO:` to annotate solutions to problems
 
     ```javascript
     function Calculator() {
@@ -704,12 +445,12 @@ The intention of this style guide is to get contributers on the same page to hel
   Why tabs are better than spaces: http://lea.verou.me/2012/01/why-tabs-are-clearly-superior/
 
     ```javascript
-    function() {
+    function[space]name(arg1,[space]arg2)[space]{
     [tab]var name;
     }
 
     ```
-  - Place 1 space before the leading brace.
+  Place 1 space before the leading brace.
 
     ```javascript
     // bad
@@ -734,7 +475,7 @@ The intention of this style guide is to get contributers on the same page to hel
       breed: 'Bernese Mountain Dog'
     });
     ```
-  - Place an empty newline at the end of the file.
+  Place an empty newline at the end of the file.
 
     ```javascript
     // bad
@@ -751,7 +492,7 @@ The intention of this style guide is to get contributers on the same page to hel
 
     ```
 
-  - Use indentation when making long method chains.  Try not to over chain.  3 or 4 is about the max recommended.
+  Use indentation when making long method chains.  Try not to over chain.  3 or 4 is about the max recommended.
 
     ```javascript
     // bad
@@ -848,8 +589,8 @@ The intention of this style guide is to get contributers on the same page to hel
     var totalScore = this.reviewScore + ' total score';
     ```
 
-  - Use `parseInt` for Numbers and always with a radix for type casting.
-  - If for whatever reason you are doing something wild and `parseInt` is your bottleneck and need to use Bitshift for [performance reasons](http://jsperf.com/coercion-vs-casting/3), leave a comment explaining why and what you're doing.
+  Use `parseInt` for Numbers and always with a radix for type casting.
+  If for whatever reason you are doing something wild and `parseInt` is your bottleneck and need to use Bitshift for [performance reasons](http://jsperf.com/coercion-vs-casting/3), leave a comment explaining why and what you're doing.
 
     ```javascript
     var inputValue = '4';
@@ -881,7 +622,7 @@ The intention of this style guide is to get contributers on the same page to hel
     var val = inputValue >> 0;
     ```
 
-  - Booleans:
+  Booleans:
 
     ```javascript
     var age = 0;
@@ -901,7 +642,7 @@ The intention of this style guide is to get contributers on the same page to hel
 
 ## <a name='naming-conventions'>Naming Conventions</a>
 
-  - Avoid single letter names. Be descriptive with your naming.
+  Avoid single letter names. Be descriptive with your naming.
 
     ```javascript
     // bad
@@ -915,7 +656,7 @@ The intention of this style guide is to get contributers on the same page to hel
     }
     ```
 
-  - Use camelCase when naming objects, functions, and instances
+  Use camelCase when naming objects, functions, and instances
 
     ```javascript
     // bad
@@ -935,7 +676,7 @@ The intention of this style guide is to get contributers on the same page to hel
     });
     ```
 
-  - Use PascalCase when naming constructors or classes
+  Use PascalCase when naming constructors or classes
 
     ```javascript
     // bad
@@ -957,18 +698,22 @@ The intention of this style guide is to get contributers on the same page to hel
     });
     ```
 
-  - Use a leading underscore `_` when naming private properties
+  Use a leading underscore `_` when naming private properties in a class 
 
     ```javascript
     // bad
-    this.__firstName__ = 'Panda';
-    this.firstName_ = 'Panda';
+    function User() {
+      this.__firstName__ = 'Panda';
+      this.firstName_ = 'Panda';
+    }
 
     // good
-    this._firstName = 'Panda';
+    function User() {
+      this._firstName = 'Panda';
+    }
     ```
 
-  - When saving a reference to `this` use `self`.
+  When saving a reference to `this` use `self`.
 
     ```javascript
     // bad
@@ -988,7 +733,7 @@ The intention of this style guide is to get contributers on the same page to hel
     }
     ```
 
-  - If you need to store a function in a variable then name your functions. This is helpful for stack traces.
+  If you need to store a function in a variable then name your functions. This is helpful for stack traces.
 
     ```javascript
     // bad
@@ -1002,13 +747,23 @@ The intention of this style guide is to get contributers on the same page to hel
     };
     ```
 
+  Booleans should start with either 'is' or 'has'.
+
+    ```javascript
+    // bad
+    var male = false
+
+    // good
+    var isMale = false;
+    ```
+
     **[[⬆]](#TOC)**
 
 
 ## <a name='accessors'>Accessors</a>
 
-  - Accessor functions for properties are not required
-  - If you do make accessor functions use getVal() and setVal('hello')
+  Accessor functions for properties are not required
+  If you do make accessor functions use getVal() and setVal('hello')
 
     ```javascript
     // bad
@@ -1024,7 +779,7 @@ The intention of this style guide is to get contributers on the same page to hel
     dragon.setAge(25);
     ```
 
-  - If the property is a boolean, use isVal() or hasVal()
+  If the property is a boolean, use isVal() or hasVal()
 
     ```javascript
     // bad
@@ -1038,30 +793,9 @@ The intention of this style guide is to get contributers on the same page to hel
     }
     ```
 
-  - It's okay to create get() and set() functions, but be consistent.
-
-    ```javascript
-    function Jedi(options) {
-      options || (options = {});
-      var lightsaber = options.lightsaber || 'blue';
-      this.set('lightsaber', lightsaber);
-    }
-
-    Jedi.prototype.set = function(key, val) {
-      this[key] = val;
-    };
-
-    Jedi.prototype.get = function(key) {
-      return this[key];
-    };
-    ```
-
-    **[[⬆]](#TOC)**
-
-
 ## <a name='constructors'>Constructors</a>
 
-  - Assign methods to the prototype object, instead of overwriting the prototype with a new object. Overwriting the prototype makes inheritance impossible: by resetting the prototype you'll overwrite the base!
+  Assign methods to the prototype object, instead of overwriting the prototype with a new object. Overwriting the prototype makes inheritance impossible: by resetting the prototype you'll overwrite the base!
 
     ```javascript
     function Jedi() {
@@ -1089,67 +823,12 @@ The intention of this style guide is to get contributers on the same page to hel
     };
     ```
 
-  - Methods can return `this` to help with method chaining.
-
-    ```javascript
-    // bad
-    Jedi.prototype.jump = function() {
-      this.jumping = true;
-      return true;
-    };
-
-    Jedi.prototype.setHeight = function(height) {
-      this.height = height;
-    };
-
-    var luke = new Jedi();
-    luke.jump(); // => true
-    luke.setHeight(20) // => undefined
-
-    // good
-    Jedi.prototype.jump = function() {
-      this.jumping = true;
-      return this;
-    };
-
-    Jedi.prototype.setHeight = function(height) {
-      this.height = height;
-      return this;
-    };
-
-    var luke = new Jedi();
-
-    luke.jump()
-      .setHeight(20);
-    ```
-
-
-  - It's okay to write a custom toString() method, just make sure it works successfully and causes no side effects.
-
-    ```javascript
-    function Jedi(options) {
-      options || (options = {});
-      this.name = options.name || 'no name';
-    }
-
-    Jedi.prototype.getName = function getName() {
-      return this.name;
-    };
-
-    Jedi.prototype.toString = function toString() {
-      return 'Jedi - ' + this.getName();
-    };
-    ```
-
-    **[[⬆]](#TOC)**
-
-
 ## <a name='modules'>Modules</a>
 
-  - The module should start with a `!`. This ensures that if a malformed module forgets to include a final semicolon there aren't errors in production when the scripts get concatenated.
-  - The file should be named with camelCase, live in a folder with the same name, and match the name of the single export.
-  - Add a method called noConflict() that sets the exported module to the previous version and returns this one.
-  - Always declare `'use strict';` at the top of the module.
+  The module should start with a `!`. This ensures that if a malformed module forgets to include a final semicolon there aren't errors in production when the scripts get concatenated.
+  The file should be named with camelCase, live in a folder with the same name, and match the name of the single export.
+  Add a method called noConflict() that sets the exported module to the previous version and returns this one.
+  Always declare `'use strict';` at the top of the module.
 
     ```javascript
     // fancyInput/fancyInput.js
@@ -1173,12 +852,6 @@ The intention of this style guide is to get contributers on the same page to hel
     ```
 
     **[[⬆]](#TOC)**
-
-## <a name='es5'>ECMAScript 5 Compatibility</a>
-
-  - Refer to [Kangax](https://twitter.com/kangax/)'s ES5 [compatibility table](http://kangax.github.com/es5-compat-table/)
-
-  **[[⬆]](#TOC)**
 
 ## <a name='license'>License</a>
 
@@ -1205,5 +878,4 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 **[[⬆]](#TOC)**
 
-# };
 
