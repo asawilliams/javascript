@@ -25,9 +25,6 @@
       // Define globals exposed by jQuery.
       "jquery": true,
 
-      // Define globals exposed by Node.js.
-      "node": true,
-
       /*
        * ENFORCING OPTIONS
        * =================
@@ -37,20 +34,26 @@
       // with underscores.
       "camelcase": true,
 
+      "curly": true,
+
       // Prohibit use of == and != in favor of === and !==.
       "eqeqeq": true,
 
       // Suppress warnings about == null comparisons.
       "eqnull": true,
 
-      // Enforce tab width of 2 spaces.
-      "indent": 2,
+      "immed": true,
+
+      // Enforce tab width of 4 spaces.
+      "indent": 4,
 
       // Prohibit use of a variable before it is defined.
       "latedef": true,
 
       // Require capitalized names for constructor functions.
       "newcap": true,
+
+      "smarttabs": true,
 
       // Enforce use of single quotation marks for strings.
       "quotmark": "single",
@@ -62,6 +65,9 @@
       "undef": true,
 
       // Warn when variables are defined but never used.
-      "unused": true
+      "unused": true,
+
+      // pre define any global variables
+      "predef": [] 
     }
 }

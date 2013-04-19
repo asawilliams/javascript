@@ -4,12 +4,12 @@
 The intention of this style guide is to get contributers on the same page to help a project be more successful.
 
 > "All code in any code-base should look like a single person typed it, no matter how many people contributed." 
->_https://github.com/rwldrn/idiomatic.js_  
+>_https://github.com/rwldrn/idiomatic.js_   
 
 &nbsp;
 
 > "Arguments over style are pointless. There should be a style guide, and you should follow it"
->_Rebecca_ _Murphey_
+>_Rebecca_ _Murphey_ 
 
 &nbsp;
 
@@ -19,14 +19,12 @@ The intention of this style guide is to get contributers on the same page to hel
 
 ## <a name='TOC'>Table of Contents</a>
 
-  1. [Types](#types)
+  1. [Variables](#variables)
   1. [Objects](#objects)
   1. [Arrays](#arrays)
   1. [Strings](#strings)
   1. [Functions](#functions)
   1. [Properties](#properties)
-  1. [Variables](#variables)
-  1. [Hoisting](#hoisting)
   1. [Conditional Expressions & Equality](#conditionals)
   1. [Blocks](#blocks)
   1. [Comments](#comments)
@@ -39,164 +37,6 @@ The intention of this style guide is to get contributers on the same page to hel
   1. [Constructors](#constructors)
   1. [Modules](#modules)
   1. [License](#license)
-
-## <a name='types'>Types</a>
-
-## <a name='objects'>Objects</a>
-
-  - Use the literal syntax for object creation.
-
-    ```javascript
-    // bad
-    var item = new Object();
-
-    // good
-    var item = {};
-    ```
-
-## <a name='arrays'>Arrays</a>
-
-  - Use the literal syntax for array creation
-
-    ```javascript
-    // bad
-    var items = new Array();
-
-    // good
-    var items = [];
-    ```
-
-  - If you don't know array length use Array#push.
-
-    ```javascript
-    var someStack = [];
-
-
-    // bad
-    someStack[someStack.length] = 'abracadabra';
-
-    // good
-    someStack.push('abracadabra');
-    ```
-
-## <a name='strings'>Strings</a>
-
-  - Use single quotes `''` for strings
-
-    ```javascript
-    // bad
-    var name = "Bob Parr";
-
-    // good
-    var name = 'Bob Parr';
-
-    // bad
-    var fullName = "Bob " + this.lastName;
-
-    // good
-    var fullName = 'Bob ' + this.lastName;
-    ```
-
-  - Strings longer than 80 characters should be written across multiple lines using string concatenation.
-  - Note: If overused, long strings with concatenation could impact performance. [jsPerf](http://jsperf.com/ya-string-concat) & [Discussion](https://github.com/airbnb/javascript/issues/40)
-
-    ```javascript
-    // bad
-    var errorMessage = 'This is a super long error that was thrown because of Batman. When you stop to think about how Batman had anything to do with this, you would get nowhere fast.';
-
-    // bad
-    var errorMessage = 'This is a super long error that \
-    was thrown because of Batman. \
-    When you stop to think about \
-    how Batman had anything to do \
-    with this, you would get nowhere \
-    fast.';
-
-
-    // good
-    var errorMessage = 'This is a super long error that ' +
-      'was thrown because of Batman.' +
-      'When you stop to think about ' +
-      'how Batman had anything to do ' +
-      'with this, you would get nowhere ' +
-      'fast.';
-    ```
-
-## <a name='functions'>Functions</a>
-
-  - Function expressions:
-
-    ```javascript
-    // anonymous function expression
-    var anonymous = function() {
-      return true;
-    };
-
-    // named function expression
-    var named = function named() {
-      return true;
-    };
-
-    // immediately-invoked function expression (IIFE)
-    (function() {
-      console.log('Welcome to the Internet. Please follow me.');
-    })();
-    ```
-
-  - Never declare a function in a non-function block (if, while, etc). Assign the function to a variable instead. Browsers will allow you to do it, but they all interpret it differently, which is bad news bears.
-  **Note:** ECMA-262 defines a `block` as a list of statements. A function declaration is not a statement. [Read ECMA-262's note on this issue](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf#page=97).
-
-    ```javascript
-    // bad
-    if (currentUser) {
-      function test() {
-        console.log('Nope.');
-      }
-    }
-
-    // good
-    var test;
-    if (currentUser) {
-      test = function() {
-        console.log('Yup.');
-      };
-    }
-    ```
-
-## <a name='properties'>Properties</a>
-
-  - Use dot notation when accessing properties.
-
-    ```javascript
-    var luke = {
-      jedi: true,
-      age: 28
-    };
-
-    // bad
-    var isJedi = luke['jedi'];
-
-    // good
-    var isJedi = luke.jedi;
-    ```
-
-  - Use subscript notation `[]` when accessing properties with a variable.
-
-    ```javascript
-    var luke = {
-      jedi: true,
-      age: 28
-    };
-
-    function getProp(prop) {
-      return luke[prop];
-    }
-
-    var isJedi = getProp('jedi');
-    ```
-
-    **[[⬆]](#TOC)**
-
 
 ## <a name='variables'>Variables</a>
 
@@ -246,7 +86,7 @@ The intention of this style guide is to get contributers on the same page to hel
         i;
     ```
 
-  - Assign variables at the top of their scope for the most part. This helps avoid issues with variable declaration and assignment hoisting related issues.
+  - Assign variables at the top of their context (not necessarily the top of the scope). This helps avoid issues with variable declaration and assignment hoisting related issues.
 
     ```javascript
     // bad
@@ -261,13 +101,15 @@ The intention of this style guide is to get contributers on the same page to hel
       test();
     }
     ```
-    It is better though to keep variables in context than to force the declaration at the top of the scope.  A good example is when you want to break out the computation of a value into multiple peices to read it better.
+  -It is better though to keep variables in context than to force the declaration at the top of the scope.  A good example is when you want to break out the computation of a value into multiple pieces to read it better.
 
     ```javascript
     // bad
     function() {
       var i = 0,
           len = array.length;
+
+      [lots of code ...]
 
       for( ; i < len; i++) {
 
@@ -282,7 +124,176 @@ The intention of this style guide is to get contributers on the same page to hel
 
     **[[⬆]](#TOC)**
 
+## <a name='objects'>Objects</a>
+
+  - Use the literal syntax for object creation.
+
+    ```javascript
+    // bad
+    var item = new Object();
+
+    // good
+    var item = {};
+    ```
+  - Define all the keys on object creation
+
+    ```javascript
+    // bad
+    var item = {};
+    item.prop = 'value';
+    item.name = 'name';
+
+    // good
+    var item = {
+      prop: 'value',
+      name: 'name',
+    };
+    ```
+### <a name='properties'>Properties</a>
+
+  - Use dot notation when accessing properties.
+
+    ```javascript
+    var luke = {
+      jedi: true,
+      age: 28
+    };
+
+    // bad
+    var isJedi = luke['jedi'];
+
+    // good
+    var isJedi = luke.jedi;
+    ```
+
+  - Use subscript notation `[]` when accessing properties with a variable.
+
+    ```javascript
+    var luke = {
+      jedi: true,
+      age: 28
+    };
+
+    function getProp(prop) {
+      return luke[prop];
+    }
+
+    var isJedi = getProp('jedi');
+    ```
+
+## <a name='arrays'>Arrays</a>
+
+  - Use the literal syntax for array creation
+
+    ```javascript
+    // bad
+    var items = new Array();
+
+    // good
+    var items = [];
+    ```
+
+  - If you don't know array length use Array#push.
+
+    ```javascript
+    var someStack = [];
+
+    // bad
+    someStack[someStack.length] = 'abracadabra';
+
+    // good
+    someStack.push('abracadabra');
+    ```
+
+## <a name='strings'>Strings</a>
+
+  - Use single quotes `''` for strings
+
+    ```javascript
+    // bad
+    var name = "Bob Parr";
+
+    // good
+    var name = 'Bob Parr';
+    ```
+
+  - Strings longer than 80 characters should be written across multiple lines using string concatenation.
+  - Note: If overused, long strings with concatenation could impact performance. [jsPerf](http://jsperf.com/ya-string-concat) & [Discussion](https://github.com/airbnb/javascript/issues/40)
+
+    ```javascript
+    // bad
+    var errorMessage = 'This is a super long error that was thrown because of Batman. When you stop to think about how Batman had anything to do with this, you would get nowhere fast.';
+
+    // bad
+    var errorMessage = 'This is a super long error that \
+    was thrown because of Batman. \
+    When you stop to think about \
+    how Batman had anything to do \
+    with this, you would get nowhere \
+    fast.';
+
+
+    // good
+    var errorMessage = 'This is a super long error that ' +
+      'was thrown because of Batman.' +
+      'When you stop to think about ' +
+      'how Batman had anything to do ' +
+      'with this, you would get nowhere ' +
+      'fast.';
+    ```
+
+## <a name='functions'>Functions</a>
+
+  - Function expressions:
+
+    ```javascript
+    // anonymous function expression
+    // by giving the function a name it makes it easier to debug since anonymous.name is now equal to 'myFunc' instead of ''.
+    var anonymous = function myFunc() {
+      return true;
+    };
+
+    // named function expression
+    function named() {
+      return true;
+    };
+
+    // immediately-invoked function expression (IIFE)
+    (function() {
+      console.log('Welcome to the Internet. Please follow me.');
+    })();
+    ```
+
+  - Never declare a function in a non-function block (if, while, etc). Assign the function to a variable instead. Browsers will allow you to do it, but they all interpret it differently, which is bad news bears.
+  **Note:** ECMA-262 defines a `block` as a list of statements. A function declaration is not a statement. [Read ECMA-262's note on this issue](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf#page=97).
+
+    ```javascript
+    // bad
+    if (currentUser) {
+      function test() {
+        console.log('Nope.');
+      }
+    }
+
+    // good
+    var test;
+    if (currentUser) {
+      test = function test() {
+        console.log('Yup.');
+      };
+    }
+    ```
+
+    **[[⬆]](#TOC)**
+
+
 ## <a name='conditionals'>Conditional Expressions & Equality</a>
+
+  - There should be a space after the
+
+    if[space]([expression])[space]{
+    [tab]
+    }
 
   - Use `===` and `!==` over `==` and `!=`.
   - Conditional expressions are evaluated using coercion with the `ToBoolean` method and always follow these simple rules:
@@ -306,22 +317,22 @@ The intention of this style guide is to get contributers on the same page to hel
     ```javascript
     // bad
     if (name !== '') {
-      // ...stuff...
+      // [code]
     }
 
     // good
     if (name) {
-      // ...stuff...
+      // [code]
     }
 
     // bad
-    if (collection.length > 0) {
-      // ...stuff...
+    if (collection.length !== 0) {
+      // [code]
     }
 
     // good
     if (collection.length) {
-      // ...stuff...
+      // [code]
     }
     ```
 
@@ -339,7 +350,7 @@ The intention of this style guide is to get contributers on the same page to hel
     if (test)
       return false;
 
-    // good
+    // bad
     if (test) return false;
 
     // good
@@ -374,9 +385,10 @@ The intention of this style guide is to get contributers on the same page to hel
      * @param  {String}   parent.username           parent's username
      * @param  {Int}      [parent.age]              optional parameter
      * @param  {Boolean}  [parent.isGaurdian=true]  optional parameter, defaults to true
+     * @param  {Person[]} [siblings]                optional parameter, array of Person objects
      * @return {User}     first result that matches the name and parent
      */
-    function getUser(name, parent) {
+    function getUser(name, parent, siblings) {
         return user;
     }
     ```
@@ -476,22 +488,6 @@ The intention of this style guide is to get contributers on the same page to hel
       breed: 'Bernese Mountain Dog'
     });
     ```
-  - Place an empty newline at the end of the file.
-
-    ```javascript
-    // bad
-    (function(global) {
-      // ...stuff...
-    })(this);
-    ```
-
-    ```javascript
-    // good
-    (function(global) {
-      // ...stuff...
-    })(this);
-
-    ```
 
   - Use indentation when making long method chains.  Try not to over chain.  3 or 4 is about the max recommended.
 
@@ -571,25 +567,6 @@ The intention of this style guide is to get contributers on the same page to hel
 
 ## <a name='type-coercion'>Type Casting & Coercion</a>
 
-  - Perform type coercion at the beginning of the statement.
-  - Strings:
-
-    ```javascript
-    //  => this.reviewScore = 9;
-
-    // bad
-    var totalScore = this.reviewScore + '';
-
-    // good
-    var totalScore = '' + this.reviewScore;
-
-    // bad
-    var totalScore = '' + this.reviewScore + ' total score';
-
-    // good
-    var totalScore = this.reviewScore + ' total score';
-    ```
-
   - Use `parseInt` for Numbers and always with a radix for type casting.
   - If for whatever reason you are doing something wild and `parseInt` is your bottleneck and need to use Bitshift for [performance reasons](http://jsperf.com/coercion-vs-casting/3), leave a comment explaining why and what you're doing.
 
@@ -608,7 +585,7 @@ The intention of this style guide is to get contributers on the same page to hel
     // bad
     var val = parseInt(inputValue);
 
-    // good
+    // bad
     var val = Number(inputValue);
 
     // good
@@ -631,7 +608,7 @@ The intention of this style guide is to get contributers on the same page to hel
     // bad
     var hasAge = new Boolean(age);
 
-    // good
+    // bad
     var hasAge = Boolean(age);
 
     // good
@@ -657,6 +634,20 @@ The intention of this style guide is to get contributers on the same page to hel
     }
     ```
 
+  - Event Handlers should start with 'on' then the object the event is coming from, and then the event type
+
+    ```javascript
+    // bad
+    function openDialog() {
+      [code]
+    }
+
+    // good
+    function onButtonClick() {
+      [code]
+    }
+    ```
+
   - Use camelCase when naming objects, functions, and instances
 
     ```javascript
@@ -664,14 +655,18 @@ The intention of this style guide is to get contributers on the same page to hel
     var OBJEcttsssss = {};
     var this_is_my_object = {};
     var this-is-my-object = {};
+
     function c() {};
+
     var u = new user({
       name: 'Bob Parr'
     });
 
     // good
     var thisIsMyObject = {};
+
     function thisIsMyFunction() {};
+
     var user = new User({
       name: 'Bob Parr'
     });
@@ -720,6 +715,7 @@ The intention of this style guide is to get contributers on the same page to hel
     // bad
     function() {
       var that = this;
+
       return function() {
         console.log(that);
       };
@@ -728,24 +724,11 @@ The intention of this style guide is to get contributers on the same page to hel
     // good
     function() {
       var self = this;
+
       return function() {
         console.log(self);
       };
     }
-    ```
-
-  - If you need to store a function in a variable then name your functions. This is helpful for stack traces.
-
-    ```javascript
-    // bad
-    var log = function(msg) {
-      console.log(msg);
-    };
-
-    // good
-    var log = function log(msg) {
-      console.log(msg);
-    };
     ```
 
   - Booleans should start with either 'is' or 'has'.
