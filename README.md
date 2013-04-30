@@ -44,10 +44,10 @@ The intention of this style guide is to get contributers on the same page to hel
 
     ```javascript
     // bad
-    superPower = new SuperPower();
+    superPower;
 
     // good
-    var superPower = new SuperPower();
+    var superPower;
     ```
 
   - Use one `var` declaration for multiple variables and declare each variable on a newline.
@@ -89,36 +89,40 @@ The intention of this style guide is to get contributers on the same page to hel
   - Assign variables at the top of their context (not necessarily the top of the scope). This helps avoid issues with variable declaration and assignment hoisting related issues.
 
     ```javascript
-    // bad
+    // bad, str should be defined before calling test()
     function() {
-      test();
-      var str = 'string';
+        test();
+        var str = 'string';
     }
 
     // good
     function() {
-      var str = 'string';
-      test();
+        var str = 'string';
+        test();
     }
     ```
   -It is better though to keep variables in context than to force the declaration at the top of the scope.  A good example is when you want to break out the computation of a value into multiple pieces to read it better.
 
     ```javascript
-    // bad
+    // bad, i and len are declared out of the context they are used
     function() {
-      var i = 0,
-          len = array.length;
+        var i = 0,
+            len = array.length;
 
-      [lots of code ...]
+        [lots of code ...]
 
-      for( ; i < len; i++) {
+        for( ; i < len; i++) {
 
-      }
+        }
     }
 
     // good
-    for(var i = 0, len = array.length; i < len; i++) {
+    function() {
+        [lots of code]
+    
+        for(var i = 0, len = array.length; i < len; i++) {
 
+        }
     }
     ```
 
@@ -145,8 +149,8 @@ The intention of this style guide is to get contributers on the same page to hel
 
     // good
     var item = {
-      prop: 'value',
-      name: 'name',
+        prop: 'value',
+        name: 'name',
     };
     ```
 ### <a name='properties'>Properties</a>
@@ -155,8 +159,8 @@ The intention of this style guide is to get contributers on the same page to hel
 
     ```javascript
     var luke = {
-      jedi: true,
-      age: 28
+        jedi: true,
+        age: 28
     };
 
     // bad
@@ -170,12 +174,12 @@ The intention of this style guide is to get contributers on the same page to hel
 
     ```javascript
     var luke = {
-      jedi: true,
-      age: 28
+        jedi: true,
+        age: 28
     };
 
     function getProp(prop) {
-      return luke[prop];
+        return luke[prop];
     }
 
     var isJedi = getProp('jedi');
@@ -235,11 +239,11 @@ The intention of this style guide is to get contributers on the same page to hel
 
     // good
     var errorMessage = 'This is a super long error that ' +
-      'was thrown because of Batman.' +
-      'When you stop to think about ' +
-      'how Batman had anything to do ' +
-      'with this, you would get nowhere ' +
-      'fast.';
+        'was thrown because of Batman.' +
+        'When you stop to think about ' +
+        'how Batman had anything to do ' +
+        'with this, you would get nowhere ' +
+        'fast.';
     ```
 
 ## <a name='functions'>Functions</a>
@@ -251,17 +255,17 @@ The intention of this style guide is to get contributers on the same page to hel
     // by giving the function a name it makes it easier to debug since anonymous.name is now equal to 'myFunc'
     // instead of ''.
     var anonymous = function myFunc() {
-      return true;
+        return true;
     };
 
     // named function expression
     function named() {
-      return true;
+        return true;
     };
 
     // immediately-invoked function expression (IIFE)
     (function() {
-      console.log('Welcome to the Internet. Please follow me.');
+        console.log('Welcome to the Internet. Please follow me.');
     })();
     ```
 
@@ -271,17 +275,17 @@ The intention of this style guide is to get contributers on the same page to hel
     ```javascript
     // bad
     if (currentUser) {
-      function test() {
-        console.log('Nope.');
-      }
+        function test() {
+            console.log('Nope.');
+        }
     }
 
     // good
     var test;
     if (currentUser) {
-      test = function test() {
-        console.log('Yup.');
-      };
+        test = function test() {
+            console.log('Yup.');
+        };
     }
     ```
 
@@ -310,8 +314,8 @@ The intention of this style guide is to get contributers on the same page to hel
 
     ```javascript
     if ([0]) {
-      // true
-      // An array is an object, objects evaluate to true
+        // true
+        // An array is an object, objects evaluate to true
     }
     ```
 
@@ -320,22 +324,22 @@ The intention of this style guide is to get contributers on the same page to hel
     ```javascript
     // bad
     if (name !== '') {
-      // [code]
+        // [code]
     }
 
     // good
     if (name) {
-      // [code]
+        // [code]
     }
 
     // bad
     if (collection.length !== 0) {
-      // [code]
+        // [code]
     }
 
     // good
     if (collection.length) {
-      // [code]
+        // [code]
     }
     ```
 
@@ -351,14 +355,14 @@ The intention of this style guide is to get contributers on the same page to hel
     ```javascript
     // bad
     if (test)
-      return false;
+        return false;
 
     // bad
     if (test) return false;
 
     // good
     if (test) {
-      return false;
+        return false;
     }
 
     // bad
@@ -366,7 +370,7 @@ The intention of this style guide is to get contributers on the same page to hel
 
     // good
     function() {
-      return false;
+        return false;
     }
     ```
 
@@ -408,21 +412,21 @@ The intention of this style guide is to get contributers on the same page to hel
 
     // bad
     function getType() {
-      console.log('fetching type...');
-      // set the default type to 'no type'
-      var type = this._type || 'no type';
+        console.log('fetching type...');
+        // set the default type to 'no type'
+        var type = this._type || 'no type';
 
-      return type;
+        return type;
     }
 
     // good
     function getType() {
-      console.log('fetching type...');
+        console.log('fetching type...');
 
-      // set the default type to 'no type'
-      var type = this._type || 'no type';
+        // set the default type to 'no type'
+        var type = this._type || 'no type';
 
-      return type;
+        return type;
     }
     ```
 
@@ -433,10 +437,10 @@ The intention of this style guide is to get contributers on the same page to hel
     ```javascript
     function Calculator() {
 
-      // FIXME: shouldn't use a global here
-      total = 0;
+        // FIXME: shouldn't use a global here
+        total = 0;
 
-      return this;
+        return this;
     }
     ```
 
@@ -445,10 +449,10 @@ The intention of this style guide is to get contributers on the same page to hel
     ```javascript
     function Calculator() {
 
-      // TODO: total should be configurable by an options param
-      this.total = 0;
+        // TODO: total should be configurable by an options param
+        this.total = 0;
 
-      return this;
+        return this;
     }
   ```
 
@@ -471,24 +475,24 @@ The intention of this style guide is to get contributers on the same page to hel
     ```javascript
     // bad
     function test(){
-      console.log('test');
+        // [code]
     }
 
     // good
     function test() {
-      console.log('test');
+        // [code]
     }
 
     // bad
     dog.set('attr',{
-      age: '1 year',
-      breed: 'Bernese Mountain Dog'
+        age: '1 year',
+        breed: 'Bernese Mountain Dog'
     });
 
     // good
     dog.set('attr', {
-      age: '1 year',
-      breed: 'Bernese Mountain Dog'
+        age: '1 year',
+        breed: 'Bernese Mountain Dog'
     });
     ```
 
@@ -531,10 +535,10 @@ The intention of this style guide is to get contributers on the same page to hel
 
     // good
     var hero = {
-      firstName: 'Bob',
-      lastName: 'Parr',
-      heroName: 'Mr. Incredible',
-      superPower: 'strength'
+        firstName: 'Bob',
+        lastName: 'Parr',
+        heroName: 'Mr. Incredible',
+        superPower: 'strength'
     };
     ```
 
@@ -548,20 +552,20 @@ The intention of this style guide is to get contributers on the same page to hel
     ```javascript
     // bad
     (function() {
-      var name = 'Skywalker'
-      return name
+        var name = 'Skywalker'
+        return name
     })()
 
     // good
     (function() {
-      var name = 'Skywalker';
-      return name;
+        var name = 'Skywalker';
+        return name;
     })();
 
     // good
     ;(function() {
-      var name = 'Skywalker';
-      return name;
+        var name = 'Skywalker';
+        return name;
     })();
     ```
 
@@ -628,12 +632,12 @@ The intention of this style guide is to get contributers on the same page to hel
     ```javascript
     // bad
     function q() {
-      // ...stuff...
+        // [code]
     }
 
     // good
     function query() {
-      // ..stuff..
+        // [code]
     }
     ```
 
@@ -642,12 +646,12 @@ The intention of this style guide is to get contributers on the same page to hel
     ```javascript
     // bad
     function openDialog() {
-      [code]
+        // [code]
     }
 
     // good
     function onButtonClick() {
-      [code]
+        // [code]
     }
     ```
 
@@ -662,7 +666,7 @@ The intention of this style guide is to get contributers on the same page to hel
     function c() {};
 
     var u = new user({
-      name: 'Bob Parr'
+        name: 'Bob Parr'
     });
 
     // good
@@ -671,7 +675,7 @@ The intention of this style guide is to get contributers on the same page to hel
     function thisIsMyFunction() {};
 
     var user = new User({
-      name: 'Bob Parr'
+        name: 'Bob Parr'
     });
     ```
 
@@ -680,20 +684,20 @@ The intention of this style guide is to get contributers on the same page to hel
     ```javascript
     // bad
     function user(options) {
-      this.name = options.name;
+        this.name = options.name;
     }
 
     var bad = new user({
-      name: 'nope'
+        name: 'nope'
     });
 
     // good
     function User(options) {
-      this.name = options.name;
+        this.name = options.name;
     }
 
     var good = new User({
-      name: 'yup'
+        name: 'yup'
     });
     ```
 
@@ -702,13 +706,13 @@ The intention of this style guide is to get contributers on the same page to hel
     ```javascript
     // bad
     function User() {
-      this.__firstName__ = 'Panda';
-      this.firstName_ = 'Panda';
+        this.__firstName__ = 'Panda';
+        this.firstName_ = 'Panda';
     }
 
     // good
     function User() {
-      this._firstName = 'Panda';
+        this._firstName = 'Panda';
     }
     ```
 
@@ -717,20 +721,20 @@ The intention of this style guide is to get contributers on the same page to hel
     ```javascript
     // bad
     function() {
-      var that = this;
+        var that = this;
 
-      return function() {
-        console.log(that);
-      };
+        return function() {
+            console.log(that);
+        };
     }
 
     // good
     function() {
-      var self = this;
+        var self = this;
 
-      return function() {
-        console.log(self);
-      };
+        return function() {
+            console.log(self);
+        };
     }
     ```
 
@@ -771,12 +775,12 @@ The intention of this style guide is to get contributers on the same page to hel
     ```javascript
     // bad
     if (!dragon.age()) {
-      return false;
+        return false;
     }
 
     // good
     if (!dragon.hasAge()) {
-      return false;
+        return false;
     }
     ```
 
@@ -786,27 +790,27 @@ The intention of this style guide is to get contributers on the same page to hel
 
     ```javascript
     function Jedi() {
-      console.log('new jedi');
+        console.log('new jedi');
     }
 
     // bad
     Jedi.prototype = {
-      fight: function fight() {
-        console.log('fighting');
-      },
+        fight: function fight() {
+            console.log('fighting');
+        },
 
-      block: function block() {
-        console.log('blocking');
-      }
+        block: function block() {
+            console.log('blocking');
+        }
     };
 
     // good
     Jedi.prototype.fight = function fight() {
-      console.log('fighting');
+        console.log('fighting');
     };
 
     Jedi.prototype.block = function block() {
-      console.log('blocking');
+        console.log('blocking');
     };
     ```
 
@@ -821,20 +825,20 @@ The intention of this style guide is to get contributers on the same page to hel
     // fancyInput/fancyInput.js
 
     !function(global) {
-      'use strict';
+        'use strict';
 
-      var previousFancyInput = global.FancyInput;
+        var previousFancyInput = global.FancyInput;
 
-      function FancyInput(options) {
-        this.options = options || {};
-      }
+        function FancyInput(options) {
+            this.options = options || {};
+        }
 
-      FancyInput.noConflict = function noConflict() {
-        global.FancyInput = previousFancyInput;
-        return FancyInput;
-      };
+        FancyInput.noConflict = function noConflict() {
+            global.FancyInput = previousFancyInput;
+            return FancyInput;
+        };
 
-      global.FancyInput = FancyInput;
+        global.FancyInput = FancyInput;
     }(this);
     ```
 
