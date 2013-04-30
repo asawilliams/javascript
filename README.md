@@ -248,7 +248,8 @@ The intention of this style guide is to get contributers on the same page to hel
 
     ```javascript
     // anonymous function expression
-    // by giving the function a name it makes it easier to debug since anonymous.name is now equal to 'myFunc' instead of ''.
+    // by giving the function a name it makes it easier to debug since anonymous.name is now equal to 'myFunc'
+    // instead of ''.
     var anonymous = function myFunc() {
       return true;
     };
@@ -291,9 +292,11 @@ The intention of this style guide is to get contributers on the same page to hel
 
   - There should be a space after the
 
-    if[space]([expression])[space]{
+    ```javascript
+    if[space]([expression])[space]{  
     [tab]
     }
+    ```
 
   - Use `===` and `!==` over `==` and `!=`.
   - Conditional expressions are evaluated using coercion with the `ToBoolean` method and always follow these simple rules:
